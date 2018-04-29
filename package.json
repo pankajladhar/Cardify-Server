@@ -18,7 +18,9 @@
   },
   "homepage": "https://github.com/pankajladhar/Cardify-Server#readme",
   "dependencies": {
-    "express": "^4.16.3"
+    "body-parser": "^1.15.2",
+    "express": "^4.16.3",
+    "jsonfile": "^4.0.0"
   },
   "devDependencies": {
     "nodemon": "^1.17.3"
