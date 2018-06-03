@@ -3,9 +3,8 @@ const path = require('path');
 const util = require('util');
 
 const { fetchCards, addCard, deleteCard } = require('./../Repo');
+const CONSTANTS = require('./../Contants');
 
-const readFile = util.promisify(require("jsonfile").readFile);
-const writeFile = util.promisify(require("jsonfile").writeFile);
 const cardsRouter = app.Router();
 
 cardsRouter.get('/fetch', (req, res) => {
@@ -25,14 +24,14 @@ cardsRouter.post('/create', (req, res) => {
     }
 
     addCard(request)
-        .then(() => res.status(200).send({ "message": "sucessfuly added" }))
+        .then(() => res.status(200).send({ "message": CONSTANTS.ADD_CARD_SUCCESS }))
         .catch(err => res.status(500).send(err))
 });
 
 cardsRouter.delete('/delete', (req, res) => {
     let cardId = req.body.cardId;
     deleteCard(cardId)
-        .then(() => res.status(200).send({ "message": "sucessfuly deleted" }))
+        .then(() => res.status(200).send({ "message": CONSTANTS.DELETED_CARD_SUCCESS }))
         .catch(err => res.status(500).send(err))
 })
 
