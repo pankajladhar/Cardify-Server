@@ -2,14 +2,14 @@ const app = require('express');
 const path = require('path');
 const util = require('util');
 
+const { fetchCards } = require('./../Repo');
+
 const readFile = util.promisify(require("jsonfile").readFile);
 const writeFile = util.promisify(require("jsonfile").writeFile);
 const cardsRouter = app.Router();
 
-const cards = path.resolve(__dirname, '..', 'data', 'cards.json');
-
 cardsRouter.get('/fetch', (req, res) => {
-    readFile(cards)
+    fetchCards()
         .then(data => res.status(200).send(data))
         .catch(err => res.status(500).send(err))
 });
