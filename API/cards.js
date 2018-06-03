@@ -2,7 +2,7 @@ const app = require('express');
 const path = require('path');
 const util = require('util');
 
-const { fetchCards, addCard } = require('./../Repo');
+const { fetchCards, addCard, deleteCard } = require('./../Repo');
 
 const readFile = util.promisify(require("jsonfile").readFile);
 const writeFile = util.promisify(require("jsonfile").writeFile);
@@ -31,9 +31,7 @@ cardsRouter.post('/create', (req, res) => {
 
 cardsRouter.delete('/delete', (req, res) => {
     let cardId = req.body.cardId;
-    readFile(cards)
-        .then((data) => data.filter((d) => d.id !== cardId))
-        .then((data) => writeFile(cards, data, { spaces: 2 }))
+    deleteCard(cardId)
         .then(() => res.status(200).send({ "message": "sucessfuly deleted" }))
         .catch(err => res.status(500).send(err))
 })
