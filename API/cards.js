@@ -2,7 +2,7 @@ const app = require('express');
 const path = require('path');
 const util = require('util');
 
-const { fetchCards } = require('./../Repo');
+const { fetchCards, addCard } = require('./../Repo');
 
 const readFile = util.promisify(require("jsonfile").readFile);
 const writeFile = util.promisify(require("jsonfile").writeFile);
@@ -24,9 +24,7 @@ cardsRouter.post('/create', (req, res) => {
         alias: alias
     }
 
-    readFile(cards)
-        .then(data => data)
-        .then((data) => writeFile(cards, [...data, request], { spaces: 2 }))
+    addCard(request)
         .then(() => res.status(200).send({ "message": "sucessfuly added" }))
         .catch(err => res.status(500).send(err))
 });
